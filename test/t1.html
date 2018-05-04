@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+
+
+
+</head>
+
+
+
+<body id="editable" contenteditable="true">
+
+fefefefef
+dwdwd
+<div>
+    1111111111
+</div>
+
+<div>
+    2222222222
+</div>
+
+<button type="button" onclick="f1()">b1</button>
+
+</body>
+
+
+
+<script>
+
+function f1(){
+    var el = document.getElementById("editable");
+        var range = document.createRange();
+        var sel = window.getSelection();
+        range.setStart(el.childNodes[0], 9);
+        range.collapse(true);
+        sel.removeAllRanges();
+        sel.addRange(range);
+}
+
+</script>
+
+</html>
+

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+
+<body contenteditable="true" id="content">
+dfdddddddddddddddddddddddddddddddddddddddddddddfefef
+
+
+<button type="button" onclick="f1()">click</button>
+
+</body>
+
+
+<script>
+
+    function placeCaretAtEnd(el) {
+    el.focus();
+    
+    if (typeof window.getSelection != "undefined"
+            && typeof document.createRange != "undefined") {
+        var range = document.createRange();
+        range.selectNodeContents(el);
+        range.collapse(false);
+        var sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+    } else if (typeof document.body.createTextRange != "undefined") {
+        var textRange = document.body.createTextRange();
+        textRange.moveToElementText(el);
+        textRange.collapse(false);
+        textRange.select();
+    }
+}
+
+
+
+
+function f(){
+    placeCaretAtEnd( document.getElementById("content") );
+
+}
+
+
+ function setInputSelection(input, startPos, endPos) {
+    if (input.setSelectionRange) {
+        input.focus();
+        input.setSelectionRange(startPos, endPos);
+    } else if (input.createTextRange) {
+        var range = input.createTextRange();
+        range.collapse(true);
+        range.moveEnd('character', endPos);
+        range.moveStart('character', startPos);
+        range.select();
+    }
+}
+
+function setInputPos(input, pos) {
+    setInputSelection(input, 0, pos);
+}
+
+
+    function f1(){
+
+        var input=document.getElementById('content');
+debugger
+        setInputPos(input,3);
+
+
+    }
+
+
+</script>
+
+
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>富文本编辑器 - layui</title>
+
+<link rel="stylesheet" href="../src/css/layui.css">
+
+<style>
+body{padding: 10px;}
+</style>
+</head>
+<body>
+
+<div style="width: 800px;">
+  <form class="layui-form">
+    <div class="layui-form-item">
+      <textarea name="demo" id="demo" class="layui-hide">
+    <p><span>一个范围具有两个边界点，即一个开始点和一个结束点。每个边界点由一个节点和那个节点的偏移量指定。该节点通常是&nbsp;</span><a href="http://www.w3school.com.cn/xmldom/dom_element.asp" title="XML DOM - Element 对象">Element 节点</a><span>、</span><a href="http://www.w3school.com.cn/xmldom/dom_document.asp" title="XML DOM - Document 对象">Document 节点</a><span>或&nbsp;</span><a href="http://www.w3school.com.cn/xmldom/dom_text.asp" title="XML DOM - Text 对象">Text 节点</a><span>。对于 Element 节点和 Document 节点，偏移量指该节点的子节点。偏移量为 0，说明边界点位于该节点的第一个子节点之前。偏移量为 1，说明边界点位于该节点的第一个子节点之后，第二个子节点之前。但如果边界节点是 Text 节点，偏移量则指的是文本中两个字符之间的位置。</span></p>
+      </textarea>
+    </div>
+    <button class="layui-btn">提交</button>
+    <a class="layui-btn" id="getChoose">获取选中内容</a>
+  </form>
+</div>
+
+<div>
+    <button type="button" onclick="f()">click</button>
+
+    <button type="button" onclick="f1()">click1</button>
+</div>
+
+
+<div>
+
+
+  <input type="text" onchange="alert(1)" />
+
+</div>
+
+<script src="../src/layui.js"></script>
+<script>
+
+
+   function setInputSelection(input, startPos, endPos) {
+    if (input.setSelectionRange) {
+        input.focus();
+        input.setSelectionRange(startPos, endPos);
+    } else if (input.createTextRange) {
+        var range = input.createTextRange();
+        range.collapse(true);
+        range.moveEnd('character', endPos);
+        range.moveStart('character', startPos);
+        range.select();
+    }
+}
+
+function setInputPos(input, pos) {
+    setInputSelection(input, 0, pos);
+}
+
+
+function f(){
+
+var input=document.getElementById('demo');
+
+setInputPos(input,3);
+
+
+}
+
+
+layui.use('layedit', function(){
+  var layedit = layui.layedit;
+  
+  var $=layui.jquery;
+
+  
+
+
+  var index = layedit.build('demo', {
+    //hideTool: ['image']
+    uploadImage: {
+      url: '/upload/test/'
+      ,type: 'post'
+    }
+    //,tool: []
+    //,height: 100
+  });
+  
+  getChoose.onclick = function(){
+    alert(layedit.getSelection(index));
+  };
+  
+});
+
+
+// var abc=window.frames['LAY_layedit_1'].document.getElementById('abc');
+// debugger
+
+
+
+    function placeCaretAtEnd(el) {
+    el.focus();
+    
+    if (typeof window.getSelection != "undefined"
+            && typeof document.createRange != "undefined") {
+        var range = document.createRange();
+        range.selectNodeContents(el);
+        range.collapse(false);
+        var sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+    } else if (typeof document.body.createTextRange != "undefined") {
+        var textRange = document.body.createTextRange();
+        textRange.moveToElementText(el);
+        textRange.collapse(false);
+        textRange.select();
+    }
+}
+
+
+
+
+function f1(){
+
+  //window.iframes['LAY_layedit_1'].document.getElementsByTagName('body')
+  //placeCaretAtEnd( window.frames['LAY_layedit_1'].document.getElementsByTagName('body')[0] );
+    //placeCaretAtEnd( document.getElementById("LAY_layedit_1") );
+
+     var editable=window.frames['LAY_layedit_1'].document.getElementsByTagName('body')[0];
+
+// var editable = document.getElementById('text');
+// editable.addEventListener('input', function() {
+//     console.log('Hey, somebody changed something in my text!');
+//     alert(1)
+// });
+
+
+function setCaretPosition(elemId, caretPos) {
+    var elem = document.getElementById(elemId);
+
+    if(elem != null) {
+        if(elem.createTextRange) {
+            var range = elem.createTextRange();
+            range.move('character', caretPos);
+            range.select();
+        }
+        else {
+            if(elem.selectionStart) {
+                elem.focus();
+                elem.setSelectionRange(caretPos, caretPos);
+            }
+            else
+                elem.focus();
+        }
+    }
+}
+
+
+editable.onfocus=function() {
+    console.log('Hey, somebody changed something in my text!');
+    
+};
+
+
+// var el = document.getElementById("editable");
+// var range = document.createRange();
+// var sel = window.getSelection();
+// range.setStart(el.childNodes[2], 5);
+// range.collapse(true);
+// sel.removeAllRanges();
+// sel.addRange(range);
+
+var doc=window.frames['LAY_layedit_1'].document;
+var el = doc.getElementsByTagName('body')[0];
+var range = doc.createRange();
+var win=window.frames['LAY_layedit_1'];
+var sel = win.getSelection();
+range.setStart(el.childNodes[1], 2);
+range.collapse(true);
+sel.removeAllRanges();
+sel.addRange(range);
+
+setCaretPosition(el,3)
+
+
+}
+
+
+</script>
+</body>
+</html>

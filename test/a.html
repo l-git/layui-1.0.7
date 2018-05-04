@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+
+<body>
+
+    <input type="text" value="ahbcddd123" id="input" />
+
+
+    <button type="button" onclick="f()">click</button>
+
+    <button type="button" onclick="f1()">f1</button>
+
+    <script>
+    
+    function setInputSelection(input, startPos, endPos) {
+    if (input.setSelectionRange) {
+        input.focus();
+        input.setSelectionRange(startPos, endPos);
+    } else if (input.createTextRange) {
+        var range = input.createTextRange();
+        range.collapse(true);
+        range.moveEnd('character', endPos);
+        range.moveStart('character', startPos);
+        range.select();
+    }
+}
+
+function setInputPos(input, pos) {
+    setInputSelection(input, pos, pos);
+}
+
+
+    function f(){
+
+        var input=document.getElementById('input');
+
+        setInputPos(input,3);
+
+
+    }
+
+
+function f1(){
+
+var input=document.getElementById('input');
+
+//setInputPos(input,3);
+input.focus();
+
+
+}
+    
+    
+    
+    </script>
+
+
+</body>
+
+
+</html>
