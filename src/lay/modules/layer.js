@@ -164,6 +164,16 @@ var layer = {
 };
 
 var Class = function(setings){  
+
+  if(setings&&setings.content && (typeof(setings.content)=='string') && (setings.type==2) && (setings.content.startsWith('/'))){
+    
+    if(window.top.getSysMenuId){
+      setings.content=setings.content+window.top.getSysMenuId();
+    }
+
+  }
+
+
   var that = this;
   that.index = ++layer.index;
   that.config = $.extend({}, that.config, ready.config, setings);
