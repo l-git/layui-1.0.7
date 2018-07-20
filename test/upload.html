@@ -28,14 +28,14 @@ body{padding: 50px 100px;}
 layui.use('upload', function(){
 
   layui.upload({
-    url: ''
+    url: '/data/json/1.json'
     ,success: function(src){
       console.log(src)
     }
   });
   
   layui.upload({
-    url: './1.txt'
+    url:  '/data/json/1.json'
     ,elem: '#test'
     ,unwrap: true
     ,success: function(src){

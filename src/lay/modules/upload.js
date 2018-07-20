@@ -122,7 +122,14 @@ layui.define('layer', function(exports){
       break;
     }
     
-    options.before && options.before(input);
+    var beforeResultObj={};
+    options.before && (beforeResultObj=options.before(input));
+
+    if(typeof beforeResultObj!= "undefined" && beforeResultObj.result==false){
+      layer.msg(beforeResultObj.msg, msgConf);
+      return input.value='';
+    }
+
     item.parent().submit();
 
     var iframe = $('#'+elemIframe), timer = setInterval(function() {
@@ -140,7 +147,13 @@ layui.define('layer', function(exports){
           res = JSON.parse(res);
         } catch(e){
           res = {};
-          return layer.msg('请对上传接口返回JSON字符', msgConf);
+
+          var m=null;
+          if(typeof conststr != undefined){
+            conststr.imageServiceErrMsg&&(m=conststr.imageServiceErrMsg);
+          }
+
+          return layer.msg(m||'请对上传接口返回JSON字符', msgConf);
         }
         typeof options.success === 'function' && options.success(res, input);
       }

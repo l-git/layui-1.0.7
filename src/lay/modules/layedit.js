@@ -386,6 +386,14 @@ layui.define(['layer', 'form'], function(exports){
             ,method: uploadImage.type
             ,elem: $(that).find('input')[0]
             ,unwrap: true
+            ,before: function(input){
+              //返回的参数item，即为当前的input DOM对象
+              if(typeof globalCommon != undefined ){
+                
+                return globalCommon.getImageUploadBefore(input);
+
+              }
+            }
             ,success: function(res){
               if(res.code == 0){
                 res.data = res.data || {};

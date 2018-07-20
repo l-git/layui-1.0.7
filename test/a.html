@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html>
 
+<head>
+    <link rel="stylesheet" href="../release/css/layui.css">
+    <script src="../release/lay/dest/layui.all.js"></script>
+    <!-- <script src="../release/layui.js"></script> -->
+    <!-- <script src="../release/lay/modules/layer.js"></script> -->
+</head>
 
 <body>
 
@@ -11,7 +17,28 @@
 
     <button type="button" onclick="f1()">f1</button>
 
+
+    <button type="button" onclick="lay()">lay</button>
+
+
+    <div id="a">
+        fff
+    </div>
+
+
     <script>
+
+
+        function lay(){
+
+
+                layer.open({
+  type: 2, 
+  content: 'http://www.baidu.com' //这里content是一个URL，如果你不想让iframe出现滚动条，你还可以content: ['http://sentsin.com', 'no']
+});            
+
+        }
+
     
     function setInputSelection(input, startPos, endPos) {
     if (input.setSelectionRange) {
